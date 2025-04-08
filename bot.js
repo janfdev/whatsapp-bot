@@ -6,6 +6,12 @@ import {
 import pino from "pino";
 import readline from "readline";
 import fs from "fs";
+import "dotenv/config";
+import OpenAI from "openai";
+
+// const openAi = new OpenAI({
+//   apiKey: process.env.OPEN_API_KEY,
+// });
 
 function question(text = "question") {
   return new Promise((resolve) => {
@@ -27,6 +33,7 @@ function question(text = "question") {
     auth: session.state,
     logger: pino({ level: "silent" }).child({ level: "silent" }),
   });
+
   if (usePairingCode && !bot.user && !bot.authState.creds.registered) {
     usePairingCode =
       (
@@ -40,6 +47,7 @@ function question(text = "question") {
     const code = await bot.requestPairingCode(waNumber.replace(/\D/g, ""));
     console.log(`\x1b[44;1m\x20PAIRING CODE\x20\x1b[0m\x20${code}`);
   }
+
   bot.ev.on("connection.update", async ({ connection, lastDisconnect }) => {
     if (connection === "close") {
       console.log(lastDisconnect.error);
@@ -54,5 +62,26 @@ function question(text = "question") {
     }
     console.log(connection);
   });
+
   bot.ev.on("creds.update", session.saveCreds);
+
+  bot.ev.on("messages.upsert", async ({ messages, type }) => {
+    if (type !== "notify") return;
+    const msg = messages[0];
+
+    if (!msg.message || msg.key.fromMe) return;
+
+    const sender = msg.key.remoteJid;
+    const text =
+      msg.message.conversation || msg.message.extendedTextMessage?.text || "";
+
+    console.log(`Pesan dari ${sender} : ${text}`);
+
+    if (text.toLowerCase() === "test") {
+      await bot.sendMessage(sender, {
+        text: "Haloo👋, ada yang bisa saya bantu? ",
+      });
+      return;
+    }
+  });
 })();
