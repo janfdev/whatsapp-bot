@@ -15,6 +15,7 @@
     "nodemon": "^3.1.9"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "@whiskeysockets/baileys": "^6.17.16",
     "dotenv": "^16.4.7",
     "openai": "^4.92.1",

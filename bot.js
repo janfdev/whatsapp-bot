@@ -7,11 +7,21 @@ import pino from "pino";
 import readline from "readline";
 import fs from "fs";
 import "dotenv/config";
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// const openAi = new OpenAI({
-//   apiKey: process.env.OPEN_API_KEY,
-// });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+async function getGeminiResponse(prompt) {
+  try {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
+  } catch (error) {
+    console.error("Gemini error: ", error);
+    return "Maaf, terjadi kesalahan🦍";
+  }
+}
 
 function question(text = "question") {
   return new Promise((resolve) => {
@@ -82,6 +92,16 @@ function question(text = "question") {
         text: "Haloo👋, ada yang bisa saya bantu? ",
       });
       return;
+    }
+
+    try {
+      const reply = await getGeminiResponse(text);
+      await bot.sendMessage(sender, { text: reply });
+    } catch (err) {
+      console.error("Gagal request ke gemini : ", err);
+      await bot.sendMessage(sender, {
+        text: "Maaf, sedang ada kendala AI Gemini😥",
+      });
     }
   });
 })();
