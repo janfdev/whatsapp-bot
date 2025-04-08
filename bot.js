@@ -91,10 +91,10 @@ function question(text = "question") {
       const menuText = `
 👋 Halo! Berikut adalah daftar perintah yang tersedia:
 
-/menu - Menampilkan daftar perintah ini
-/ask <pertanyaan> - Bertanya kepada Gemini
-/translate <teks> <bahasa_tujuan> -  Menerjemahkan teks ke bahasa tertentu (contoh: /translate halo id)
-/summarize <teks> - Meringkas teks yang panjang
+*/menu* - Menampilkan daftar perintah ini
+*/ask* <pertanyaan> - Bertanya kepada Gemini
+*/translate* <teks> <bahasa_tujuan> -  Menerjemahkan teks ke bahasa tertentu (contoh: /translate halo id)
+*/summarize* <teks> - Meringkas teks yang panjang
     `;
 
       await bot.sendMessage(sender, {
@@ -117,7 +117,7 @@ function question(text = "question") {
       if (parts.length >= 2) {
         const textToTranslate = parts.slice(0, -1).join(" ");
         const targetLanguange = parts.slice(-1)[0];
-        const prompt = `Terjemahkan teks berikut ke dalam bahasa ${targetLanguange}`;
+        const prompt = `Terjemahkan teks berikut ke dalam bahasa ${targetLanguange}: ${textToTranslate}`;
         const response = await getGeminiResponse(prompt);
         await bot.sendMessage(sender, { text: response }, { quoted: msg });
       } else {
@@ -140,16 +140,14 @@ function question(text = "question") {
       return;
     }
 
-    if (text.toLowerCase() !== "test") {
-      const text = `👋 Halo! Berikut adalah daftar perintah yang tersedia:
-
-/menu - Menampilkan daftar perintah ini
-/ask <pertanyaan> - Bertanya kepada Gemini
-/translate <teks> <bahasa_tujuan> -  Menerjemahkan teks ke bahasa tertentu (contoh: /translate halo id)
-/summarize <teks> - Meringkas teks yang panjang`;
-
-      const response = await getGeminiResponse(text);
-      await bot.sendMessage(sender, { text: response });
+    try {
+      const reply = await getGeminiResponse(text);
+      await bot.sendMessage(sender, { text: reply });
+    } catch (err) {
+      console.error("Gagal request ke gemini : ", err);
+      await bot.sendMessage(sender, {
+        text: "Maaf, sedang ada kendala AI Gemini",
+      });
     }
   });
 })();
