@@ -87,21 +87,69 @@ function question(text = "question") {
 
     console.log(`Pesan dari ${sender} : ${text}`);
 
-    if (text.toLowerCase() === "test") {
+    if (text.toLowerCase() === "/menu") {
+      const menuText = `
+👋 Halo! Berikut adalah daftar perintah yang tersedia:
+
+/menu - Menampilkan daftar perintah ini
+/ask <pertanyaan> - Bertanya kepada Gemini
+/translate <teks> <bahasa_tujuan> -  Menerjemahkan teks ke bahasa tertentu (contoh: /translate halo id)
+/summarize <teks> - Meringkas teks yang panjang
+    `;
+
       await bot.sendMessage(sender, {
-        text: "Haloo👋, ada yang bisa saya bantu? ",
+        text: menuText,
       });
       return;
     }
 
-    try {
-      const reply = await getGeminiResponse(text);
-      await bot.sendMessage(sender, { text: reply });
-    } catch (err) {
-      console.error("Gagal request ke gemini : ", err);
-      await bot.sendMessage(sender, {
-        text: "Maaf, sedang ada kendala AI Gemini😥",
-      });
+    // /ask
+    if (text.toLowerCase().startsWith("/ask ")) {
+      const prompt = text.substring("/ask ", length);
+      const response = await getGeminiResponse(prompt);
+      await bot.sendMessage(sender, { text: response }, { quoted: msg });
+      return;
+    }
+
+    // /translate
+    if (text.toLowerCase().startsWith("/translate ")) {
+      const parts = text.substring("/translate".length).split(" ");
+      if (parts.length >= 2) {
+        const textToTranslate = parts.slice(0, -1).join(" ");
+        const targetLanguange = parts.slice(-1)[0];
+        const prompt = `Terjemahkan teks berikut ke dalam bahasa ${targetLanguange}`;
+        const response = await getGeminiResponse(prompt);
+        await bot.sendMessage(sender, { text: response }, { quoted: msg });
+      } else {
+        await bot.sendMessage(
+          sender,
+          {
+            text: "Format pertanyaan salah, silahkan ulangi. Contoh: '/translate halo eng",
+          },
+          { quoted: msg }
+        );
+      }
+    }
+
+    // /summarize
+    if (text.toLowerCase().startsWith("/summarize ")) {
+      const textToSummarize = text.substring("/summarize".length);
+      const prompt = `Ringkas teks berikut menjadi poin-poin penting:\n\n${textToSummarize}`;
+      const response = await getGeminiResponse(prompt);
+      await bot.sendMessage(sender, { text: response }, { quoted: msg });
+      return;
+    }
+
+    if (text.toLowerCase() !== "test") {
+      const text = `👋 Halo! Berikut adalah daftar perintah yang tersedia:
+
+/menu - Menampilkan daftar perintah ini
+/ask <pertanyaan> - Bertanya kepada Gemini
+/translate <teks> <bahasa_tujuan> -  Menerjemahkan teks ke bahasa tertentu (contoh: /translate halo id)
+/summarize <teks> - Meringkas teks yang panjang`;
+
+      const response = await getGeminiResponse(text);
+      await bot.sendMessage(sender, { text: response });
     }
   });
 })();
