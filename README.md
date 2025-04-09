@@ -24,12 +24,7 @@ Bot WhatsApp ini memungkinkan Anda berinteraksi dengan Google Gemini AI langsung
     cd <nama_folder_proyek>
     ```
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-
-3.  **Konfigurasi Environment:**
+2.  **Konfigurasi Environment:**
     * Buat file `.env` di root direktori proyek Anda.
     * Tambahkan kunci API Gemini Anda ke dalam file `.env`:
         ```dotenv
@@ -67,7 +62,7 @@ Setelah bot berhasil terhubung ke WhatsApp, Anda dapat menggunakan perintah-peri
 
 Jika Anda ingin berkontribusi pada proyek ini, Anda dipersilakan untuk melakukan fork repositori dan mengirimkan pull request dengan perubahan yang Anda usulkan.
 
-## Ucapan Terima Kasih
+## Package yang digunakan
 
 * `@google/generative-ai`: Untuk integrasi dengan model Gemini AI.
 * `@whiskeysockets/baileys`: Library utama untuk koneksi dan interaksi dengan WhatsApp.
@@ -75,12 +70,6 @@ Jika Anda ingin berkontribusi pada proyek ini, Anda dipersilakan untuk melakukan
 * `nodemon` (sebagai `devDependency`): Untuk kemudahan pengembangan dengan auto-reload.
 * `qrcode-terminal`: Untuk menampilkan QR code di terminal saat pairing WhatsApp.
 * `pino`: Untuk logging (kemungkinan digunakan oleh `@whiskeysockets/baileys`).
-* Rizqi Noor Fauzan (@nama_author_di_github atau informasi kontak lainnya jika berkenan).
 
 ---
 
-**Catatan:**
-
-* Pastikan Anda menjaga keamanan kunci API Gemini Anda dan tidak membagikannya secara publik.
-* Perhatikan batasan penggunaan (quotas) dari Google Generative AI API.
-* Dokumentasi ini bersifat dasar, Anda dapat mengembangkannya lebih lanjut sesuai dengan kompleksitas proyek Anda.
