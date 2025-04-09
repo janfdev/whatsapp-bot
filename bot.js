@@ -1,7 +1,7 @@
 import {
   jidNormalizedUser,
   makeWASocket,
-  useMultiFileAuthState,
+  useMultiFileAuthState
 } from "@whiskeysockets/baileys";
 import pino from "pino";
 import readline from "readline";
@@ -27,7 +27,7 @@ function question(text = "question") {
   return new Promise((resolve) => {
     const rl = readline.createInterface({
       input: process.stdin,
-      output: process.stdout,
+      output: process.stdout
     });
     rl.question(`\x1b[32;1m?\x1b[0m\x20${text}`, (answer) => {
       rl.close();
@@ -41,7 +41,7 @@ function question(text = "question") {
   const bot = makeWASocket({
     printQRInTerminal: !usePairingCode,
     auth: session.state,
-    logger: pino({ level: "silent" }).child({ level: "silent" }),
+    logger: pino({ level: "silent" }).child({ level: "silent" })
   });
 
   if (usePairingCode && !bot.user && !bot.authState.creds.registered) {
@@ -98,14 +98,14 @@ function question(text = "question") {
     `;
 
       await bot.sendMessage(sender, {
-        text: menuText,
+        text: menuText
       });
       return;
     }
 
     // /ask
     if (text.toLowerCase().startsWith("/ask ")) {
-      const prompt = text.substring("/ask ", length);
+      const prompt = text.substring("/ask".length);
       const response = await getGeminiResponse(prompt);
       await bot.sendMessage(sender, { text: response }, { quoted: msg });
       return;
@@ -124,7 +124,7 @@ function question(text = "question") {
         await bot.sendMessage(
           sender,
           {
-            text: "Format pertanyaan salah, silahkan ulangi. Contoh: '/translate halo eng",
+            text: "Format pertanyaan salah, silahkan ulangi. Contoh: '/translate halo eng"
           },
           { quoted: msg }
         );
@@ -146,7 +146,7 @@ function question(text = "question") {
     } catch (err) {
       console.error("Gagal request ke gemini : ", err);
       await bot.sendMessage(sender, {
-        text: "Maaf, sedang ada kendala AI Gemini",
+        text: "Maaf, sedang ada kendala AI Gemini"
       });
     }
   });
