@@ -1,7 +1,3 @@
-Berikut ini adalah versi **README interaktif** yang telah diperbarui dengan **emoji, gaya bahasa yang lebih ramah, dan interaktif**, cocok untuk menarik minat pengguna dan memudahkan pemahaman:
-
----
-
 # 🤖 WhatsApp Bot dengan Integrasi Gemini AI ✨
 
 Selamat datang di proyek **WhatsApp Bot x Gemini AI**! 🎉  
