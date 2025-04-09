@@ -29,8 +29,8 @@ Sebelum memulai, pastikan kamu sudah punya:
 
 1. **Clone repositori** ini ke komputermu:
    ```bash
-   git clone <whatsapp-bot>
-   cd <whatsapp-bot>
+   git clone https://github.com/janfdev/whatsapp-bot.git
+   cd whatsapp-bot
    ```
 
 2. **Buat file konfigurasi `.env`:**
