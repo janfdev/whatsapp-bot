@@ -1,75 +1,98 @@
-# WhatsApp Bot dengan Integrasi Gemini AI
-
-Bot WhatsApp ini memungkinkan Anda berinteraksi dengan Google Gemini AI langsung melalui chat WhatsApp. Anda dapat mengajukan pertanyaan, meminta terjemahan, meringkas teks, dan menggunakan perintah-perintah lain yang didukung.
-
-## Fitur Utama
-
-* **`/menu`**: Menampilkan daftar perintah yang tersedia.
-* **`/ask <pertanyaan>`**: Mengajukan pertanyaan kepada Gemini AI.
-* **`/translate <teks> <bahasa_tujuan>`**: Menerjemahkan teks ke bahasa tertentu (contoh: `/translate halo en`).
-* **`/summarize <teks>`**: Meringkas teks yang panjang menjadi poin-poin penting.
-* **Respons Otomatis:** Merespons pesan dengan bantuan Gemini AI (kecuali pesan dari diri sendiri).
-* **Koneksi WhatsApp:** Terhubung ke WhatsApp menggunakan library `@whiskeysockets/baileys`.
-
-## Prasyarat
-
-* **Node.js** (versi LTS disarankan)
-* **API Key Gemini**
-
-## Instalasi
-
-1.  **Clone repositori ini (jika Anda memiliki kode dalam repositori):**
-    ```bash
-    git clone <URL_repositori_anda>
-    cd <nama_folder_proyek>
-    ```
-
-2.  **Konfigurasi Environment:**
-    * Buat file `.env` di root direktori proyek Anda.
-    * Tambahkan kunci API Gemini Anda ke dalam file `.env`:
-        ```dotenv
-        GEMINI_API_KEY=YOUR_GEMINI_API_KEY
-        ```
-        **Pastikan untuk mengganti `YOUR_GEMINI_API_KEY` dengan kunci API Gemini Anda yang sebenarnya.**
-
-## Cara Menjalankan Bot
-
-1.  **Jalankan bot menggunakan Node.js:**
-    ```bash
-    npm run dev
-    ```
-    Perintah `npm run dev` sudah dikonfigurasi di `package.json` untuk menjalankan `node index.js`.
-
-2.  **Proses Pairing WhatsApp:**
-    * Saat bot pertama kali dijalankan, Anda akan diminta untuk melakukan pairing dengan WhatsApp.
-    * Anda akan melihat pesan di terminal yang menanyakan apakah Anda ingin terhubung menggunakan pairing code.
-    * Jika Anda memilih `Y`, Anda akan diminta memasukkan nomor WhatsApp Anda.
-    * Setelah itu, kode pairing akan ditampilkan di terminal.
-    * Buka **WhatsApp** di ponsel Anda, pergi ke **Linked Devices**, pilih **Link a Device**, dan masukkan kode pairing yang ditampilkan.
-    * Jika Anda memilih `n`, QR code akan ditampilkan di terminal yang bisa Anda scan menggunakan WhatsApp (kemungkinan menggunakan library `qrcode-terminal`).
-
-## Penggunaan Perintah
-
-Setelah bot berhasil terhubung ke WhatsApp, Anda dapat menggunakan perintah-perintah berikut melalui chat:
-
-* **`/menu`**: Kirim pesan `/menu` untuk melihat daftar semua perintah yang tersedia.
-* **`/ask <pertanyaan>`**: Contoh: `/ask Apa saja planet di tata surya kita?`
-* **`/translate <teks> <bahasa_tujuan>`**: Contoh: `/translate how are you? id`
-* **`/summarize <teks>`**: Kirim teks panjang setelah perintah `/summarize` untuk mendapatkan ringkasannya. Contoh: `/summarize [isi artikel panjang]`
-
-
-## Kontribusi
-
-Jika Anda ingin berkontribusi pada proyek ini, Anda dipersilakan untuk melakukan fork repositori dan mengirimkan pull request dengan perubahan yang Anda usulkan.
-
-## Package yang digunakan
-
-* `@google/generative-ai`: Untuk integrasi dengan model Gemini AI.
-* `@whiskeysockets/baileys`: Library utama untuk koneksi dan interaksi dengan WhatsApp.
-* `dotenv`: Untuk memuat variabel lingkungan dari file `.env`.
-* `nodemon` (sebagai `devDependency`): Untuk kemudahan pengembangan dengan auto-reload.
-* `qrcode-terminal`: Untuk menampilkan QR code di terminal saat pairing WhatsApp.
-* `pino`: Untuk logging (kemungkinan digunakan oleh `@whiskeysockets/baileys`).
+Berikut ini adalah versi **README interaktif** yang telah diperbarui dengan **emoji, gaya bahasa yang lebih ramah, dan interaktif**, cocok untuk menarik minat pengguna dan memudahkan pemahaman:
 
 ---
 
+# 🤖 WhatsApp Bot dengan Integrasi Gemini AI ✨
+
+Selamat datang di proyek **WhatsApp Bot x Gemini AI**! 🎉  
+Dengan bot ini, kamu bisa ngobrol langsung dengan **Google Gemini AI** lewat chat WhatsApp. Tanyakan apa pun, terjemahkan teks, atau minta ringkasan artikel panjang — semua langsung dari WhatsApp kamu! 📱🧠
+
+---
+
+## 🚀 Fitur Utama
+
+🔹 **`/menu`** – Tampilkan semua perintah yang bisa kamu gunakan  
+💬 **`/ask <pertanyaan>`** – Ajukan pertanyaan ke Gemini AI (contoh: `/ask Siapa penemu listrik?`)  
+🌍 **`/translate <teks> <bahasa_tujuan>`** – Terjemahkan teks ke bahasa lain (contoh: `/translate halo en`)  
+📝 **`/summarize <teks>`** – Ringkas artikel panjang ke poin-poin penting  
+⚙️ **Auto Response** – Bot akan otomatis merespons pesan yang masuk (selain dari dirinya sendiri)  
+📡 **Koneksi ke WhatsApp** – Menggunakan `@whiskeysockets/baileys` untuk terhubung dan membaca chat
+
+---
+
+## 🧰 Prasyarat
+
+Sebelum memulai, pastikan kamu sudah punya:
+
+- 🔧 **Node.js** (rekomendasi versi LTS)
+- 🔐 **API Key Gemini** dari Google AI Studio
+
+---
+
+## ⚙️ Instalasi
+
+1. **Clone repositori** ini ke komputermu:
+   ```bash
+   git clone <whatsapp-bot>
+   cd <whatsapp-bot>
+   ```
+
+2. **Buat file konfigurasi `.env`:**
+   ```dotenv
+   GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+   ```
+   Gantilah `YOUR_GEMINI_API_KEY` dengan API key milikmu.
+
+---
+
+## ▶️ Cara Menjalankan Bot
+
+1. **Jalankan dengan perintah:**
+   ```bash
+   npm run dev
+   ```
+
+2. **Pairing ke WhatsApp:**
+   - Saat pertama kali dijalankan, kamu akan diminta melakukan pairing.
+   - 📱 Pilih `Y` untuk pairing menggunakan nomor HP (kode pairing akan muncul).
+   - 📷 Pilih `n` untuk menampilkan QR code di terminal (scan dari WhatsApp → Linked Devices → Link a Device).
+   - Setelah pairing, bot akan aktif dan siap menerima perintah!
+
+---
+
+## 💡 Contoh Penggunaan Perintah
+
+Berikut contoh penggunaan langsung via chat WhatsApp:
+
+| Perintah | Deskripsi |
+|----------|-----------|
+| `/menu` | Tampilkan semua perintah yang tersedia |
+| `/ask Apa ibukota Jepang?` | Jawaban: Tokyo 🗼 |
+| `/translate I love you id` | Hasil: Aku mencintaimu ❤️ |
+| `/summarize Artikel ini menjelaskan tentang ...` | Ringkasan singkat dari teks panjang |
+
+---
+
+## 🤝 Kontribusi
+
+Ingin bantu kembangkan bot ini?  
+Silakan `fork` repo, buat perubahan, dan ajukan **pull request**! Kontribusi kamu sangat dihargai! 🙌
+
+---
+
+## 📦 Package yang Digunakan
+
+| Package | Fungsi |
+|--------|--------|
+| `@google/generative-ai` | Integrasi dengan Gemini AI |
+| `@whiskeysockets/baileys` | Koneksi dan interaksi dengan WhatsApp |
+| `dotenv` | Load variabel dari file `.env` |
+| `nodemon` | Auto-reload saat develop |
+| `qrcode-terminal` | Menampilkan QR code di terminal |
+| `pino` | Logging (digunakan oleh Baileys) |
+
+---
+
+✨ **Happy coding & chatting!** Kalau ada pertanyaan, langsung kirim aja ke bot-nya! 💬🚀
+
+---
